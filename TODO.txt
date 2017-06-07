@@ -1,0 +1,19 @@
+TODO list for AcmlmBlarg
+
+* Create a warning system (PHP)
+* Implant the K64 PM notification type thingys
+* Make PMs like threads
+* Add a "Conversation read by: $user" in PMs
+* Be able to choose which layout to use, Blarg or Acmlm. (exp)
+* Make an announcement list, no replies. Just the first post of an announcements, with "View replies ($replyCount)" below
+* Make it so the login page is available when posting as a guest.
+* Add thread description
+* Add proxy protection, emails, IPs and usernames. Via SFS
+ 
+
+
+* PORT ALL ABXD PLUGINS
+* PORT ALL ACMLMBOARD 1/2 THEMES
+* PORT ALL ABXD THEMES
+* PORT ALL BLARGBOARD THEMES
+* PORT AS MUCH AS POSSIBLE
