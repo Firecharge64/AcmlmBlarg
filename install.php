@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Blargboard install</title>
+<title>AcmlmBlarg install</title>
 <style type="text/css">
 a:link { color: #0e5; }
 a:visited { color: #0e5; }
@@ -12,16 +12,16 @@ html, body { width: 100%; height: 100%; }
 body
 {
 	font: 12pt 'Arial', 'Helvetica', sans-serif;
-	background: #222;
+	background: #800000;
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	color: #fff;
+	color: white;
 }
 
 #container
 {
-	background: #032;
+	background: #0000FF;
 	min-height: 100%;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -33,7 +33,7 @@ body
 
 h1, h3
 {
-	border-bottom: 2px solid #0d5;
+	border-bottom: 2px solid #eee;
 	padding-bottom: 1em;
 }
 
@@ -41,12 +41,12 @@ input, select
 {
 	background: black;
 	color: white;
-	border: 1px solid #054;
+	border: 1px solid #FF0000;
 }
 
 input[type='submit'], input[type='button']
 {
-	border: 2px ridge #0d5;
+	border: 2px ridge #eee;
 }
 
 .blarg
@@ -62,13 +62,13 @@ table
 
 td:not([colspan='2'])
 {
-	border-bottom: 1px solid #043;
+	border-bottom: 1px solid #FF0000;
 }
 </style>
 </head>
 <body>
 <div id="container">
-<h1>Blargboard install</h1>
+<h1>AcmlmBlarg install</h1>
 <br>
 <?php
 
@@ -95,12 +95,16 @@ $footer = '</div></body></html>';
 // pre-install checks
 
 if (file_exists('config/database.php'))
-	die('The board is already installed.'.$footer);
+	die('The database details already exist, so the board is installed.<br>If not, please delete config/database.php.<br><br>DO NOT DELETE
+	THE FOLDER OR EVERY PASSWORD WILL NOT WORK.'.$copyright ' .$footer);
 	
 $footer = '<br><br><a href="javascript:window.history.back();">Go back and try again</a></div></body></html>';
 
-if (version_compare(PHP_VERSION, '5.3.0') < 0)
-	die('Error: Blargboard requires PHP 5.3 or above.'.$footer);
+$copyright = '<br><br><p>&copy; 2017 - theninja1000. This software may not be reproduced without permission from
+              theninja1000.';
+
+if (version_compare(PHP_VERSION, '5.5.0') < 0)
+	die('Error: AcmlmBlarg requires PHP 5.5 or above.'.$footer);
 	
 if (!is_dir('config'))
 	if (!mkdir('config'))
@@ -114,7 +118,7 @@ if ($_POST['submit'])
 	$boardpassword = $_POST['boardpassword'];
 	
 	if (!$boardusername || !$boardpassword)
-		die('Please enter a board username and password.'.$footer);
+		die('Please enter a username and password.'.$footer);
 		
 	if ($boardpassword !== $_POST['bpconfirm'])
 		die('Error: the passwords you entered don\'t match.'.$footer);
@@ -159,7 +163,7 @@ $logSqlErrors = 0;
 		1, $boardusername, $sha, $pss, 4, time(), $_SERVER['REMOTE_ADDR'], '', 2, 'blargboard');
 		
 ?>
-	<h3>Your new Blargboard board has been successfully installed!</h3>
+	<h3>Your new AcmlmBlarg board has been successfully installed!</h3>
 	<br>
 	You should now:
 	<ul>
@@ -167,7 +171,7 @@ $logSqlErrors = 0;
 		<li><a href="./?page=login">log in to your board</a> and configure it
 	</ul>
 	<br>
-	Thank you for choosing Blargboard!<br>
+	Thank you for choosing AcmlmBlarg!<br>
 	<br>
 <?php
 }
@@ -177,15 +181,18 @@ else
 	<form action="" method="POST">
 	<div class="blarg">
 	<table>
-	
+	<h3>Credentials</h3>
+	<p>Let's get going. Here you will need to type in your MySQL details.<br>Make sure your
+	webserver's permissions are set so AcmlmBlarg can generate the config folder with
+	database.php, kurikey.php and salt.php.</p>
 	<tr><td>MySQL server:</td><td><input type="text" name="dbserver" size=64 value="localhost"></td></tr>
-	<tr><td>MySQL username:</td><td><input type="text" name="dbusername" size=64 value=""></td></tr>
+	<tr><td>MySQL username:</td><td><input type="text" name="dbusername" size=64 value="acmlmblarg"></td></tr>
 	<tr><td>MySQL password:</td><td><input type="password" name="dbpassword" size=64 value=""></td></tr>
-	<tr><td>MySQL database:</td><td><input type="text" name="dbname" size=64 value=""></td></tr>
+	<tr><td>MySQL database:</td><td><input type="text" name="dbname" size=64 value="acmlmblarg"></td></tr>
 	<tr><td colspan=2>&nbsp;</td></tr>
 	
 	<tr><td>Database table name prefix:</td><td><input type="text" name="dbprefix" size=64 value=""></td></tr>
-	<tr><td colspan=2>This setting can be useful when the board's database is shared with other applications. If you're not sure what to put in there, leave it blank.</td></tr>
+	<tr><td colspan=2>This setting can be useful when the board's database is shared with other applications. If you're not sure what to put in there, leave it blank unless you use other applications with the same database.</td></tr>
 	<tr><td colspan=2>&nbsp;</td></tr>
 	
 	<tr><td>Board username:</td><td><input type="text" name="boardusername" size=64 maxlength=20 value=""></td></tr>
@@ -194,8 +201,11 @@ else
 	<tr><td colspan=2>An owner account with these credentials will be created on your board after the install process has completed.</td></tr>
 	<tr><td colspan=2>&nbsp;</td></tr>
 	
-	<tr><td colspan=2><input type="submit" name="submit" value="Install"></td></tr>
-	
+	<tr><td colspan=2><input type="submit" name="submit" value="Install Now"></td></tr>
+	<br><br><br><br>
+	<?php
+	echo '.$copyright';
+	?>
 	</table>
 	</div>
 	</form>
